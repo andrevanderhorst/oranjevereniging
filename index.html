@@ -160,14 +160,52 @@ async function opslaan() {
   document.getElementById("error").style.display = "none";
   document.getElementById("loading").style.display = "block";
 
+  const naam = document.getElementById("naam").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const telefoon = document.getElementById("telefoon").value.trim();
+  const lidmaatschap = document.getElementById("lidmaatschap").value;
+  const startdatum = document.getElementById("startdatum").value;
+
+  // VALIDATIE
+
+  if(
+    naam === "" ||
+    email === "" ||
+    telefoon === "" ||
+    lidmaatschap === "" ||
+    startdatum === ""
+  ){
+    alert("Vul alle velden in");
+    document.getElementById("loading").style.display = "none";
+    return;
+  }
+
+  // EMAIL VALIDATIE
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if(!emailRegex.test(email)){
+    alert("Voer een geldig emailadres in");
+    document.getElementById("loading").style.display = "none";
+    return;
+  }
+
+  // TELEFOON VALIDATIE
+
+  const telefoonRegex = /^[0-9]{10}$/;
+
+  if(!telefoonRegex.test(telefoon)){
+    alert("Telefoonnummer moet exact 10 cijfers bevatten");
+    document.getElementById("loading").style.display = "none";
+    return;
+  }
+
   const data = {
-
-    naam: document.getElementById("naam").value,
-    email: document.getElementById("email").value,
-    telefoon: document.getElementById("telefoon").value,
-    lidmaatschap: document.getElementById("lidmaatschap").value,
-    startdatum: document.getElementById("startdatum").value
-
+    naam,
+    email,
+    telefoon,
+    lidmaatschap,
+    startdatum
   };
 
   try {
@@ -199,7 +237,6 @@ async function opslaan() {
   }
 
   document.getElementById("loading").style.display = "none";
-
 }
 
 </script>
